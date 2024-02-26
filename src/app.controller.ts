@@ -34,14 +34,6 @@ export class AppController {
     return 'Redirecting to nestjs docs';
   }
 
-  @Get('docs')
-  @Redirect('https://docs.nestjs.com/v5', 302)
-  getDocs(@Query('version') version) {
-    if (version && version === '5') {
-      return { url: 'https://docs.nestjs.com/v5/' };
-    }
-  }
-
   @Get(':id')
   findOne(@Param() params: any): string {
     return `This action returns a #${params.id} cat`;
