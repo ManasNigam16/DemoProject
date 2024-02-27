@@ -13,6 +13,7 @@ import {
   Req,
   UseFilters,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { CreateCatDto, UpdateCatDto } from './dataTypes/create-cat.dto';
 import { ListAllEntities } from './dataTypes/list-all-entities.dto';
@@ -21,13 +22,15 @@ import { error } from 'console';
 import { HttpExceptionFilter } from './http-exception.filter';
 import { RoleGaurd } from './auth.gaurd';
 import { Roles } from './roles.decorator';
+import { LoggerInterceptor } from './logging.interceptor';
 
 @Controller('cats')
 @UseGuards(RoleGaurd)
+@UseInterceptors(LoggerInterceptor)
 export class CatController {
   constructor(private catsService: CatsService) {}
 
-  // Post request to add new cat field
+  // Post request to add new cat field and only admin role can access this route
   @Post()
   @Roles(['admin'])
   async create(@Body() createCatDto: CreateCatDto) {

@@ -14,7 +14,7 @@ import { RoleGaurd } from './Cats/auth.gaurd';
 @Module({
   imports: [CatsModule],
   controllers: [AppController],
-  providers: [AppService, { provide: APP_GUARD, useClass: RoleGaurd }],
+  providers: [AppService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
